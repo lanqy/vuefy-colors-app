@@ -18,21 +18,29 @@ export default {
     }
   },
   methods: {
-
+    updateItems (title) {
+      var obj = this.colors[title]
+      var o = Object.keys(obj)
+      this.items = []
+      for (var i = 0; i < o.length; i++) {
+        var hex = obj[o[i]].hex
+        var rgb = obj[o[i]].rgb
+        var code = obj[o[i]].code
+        this.items.push({
+          hex: hex,
+          rgb: rgb,
+          code: code
+        })
+      }
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.updateItems(this.$route.params.title)
+    }
   },
   created: function () {
-    var obj = this.colors[this.$route.params.title]
-    var o = Object.keys(obj)
-    for (var i = 0; i < o.length; i++) {
-      var hex = obj[o[i]].hex
-      var rgb = obj[o[i]].rgb
-      var code = obj[o[i]].code
-      this.items.push({
-        hex: hex,
-        rgb: rgb,
-        code: code
-      })
-    }
+    this.updateItems(this.$route.params.title)
   }
 }
 </script>
