@@ -15,7 +15,8 @@ export default new Router({
     {
       path: '/material/:title',
       name: 'list',
-      component: List
+      component: List,
+      props: true
     }
   ],
   mode: 'history'

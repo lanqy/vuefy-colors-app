@@ -1,18 +1,33 @@
 <template>
-    <ul id="color">
-      <li v-for="item in items" :style="'background-color:' + item.hex"><label>{{item.code}}</label><span>{{item.hex}}</span></li>
-    </ul>
+    <div id="color">
+      <ul>
+        <li v-for="item in items" @click="handlerClick(item.hex)" :style="'background-color:' + item.hex"><label>{{item.code}}</label><span>{{item.hex}}</span></li>
+      </ul>
+    <div id="toast" :class="{open:open}">Copied!</div>
+  </div>
 </template>
 
 <script>
+import * as Utils from '../utils/utils'
 import json from '../utils/colors/colors.json'
 export default {
   name: 'list',
+  props: {
+    title: String,
+    default: 'red'
+  },
   data () {
     return {
       colors: json,
       keys: Object.keys(json),
-      items: []
+      items: [],
+      open: false,
+      route: this.title
+    }
+  },
+  watch: {
+    title (title) {
+      this.updateItems(title)
     }
   },
   methods: {
@@ -30,15 +45,21 @@ export default {
           code: code
         })
       }
-    }
-  },
-  watch: {
-    '$route' (to, from) {
-      this.updateItems(this.$route.params.title)
+    },
+    close () {
+      var _this = this
+      setTimeout(function () {
+        _this.open = false
+      }, 1000)
+    },
+    handlerClick (text) {
+      Utils.copy(text)
+      this.open = true
+      this.close()
     }
   },
   created: function () {
-    this.updateItems(this.$route.params.title)
+    this.updateItems(this.title)
   }
 }
 </script>

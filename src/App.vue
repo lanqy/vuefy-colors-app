@@ -1,20 +1,32 @@
 <template>
   <div id="app">
-    <header id="top"><a id="logo"></a><h2>red</h2><div id="modes">hex</div></header>
+    <Hd></Hd>
     <main id="content">
-      <side></side>
-      <router-view></router-view>
+      <Side @click="handlerClick"></Side>
+      <router-view :route="route"></router-view>
     </main>
   </div>
 </template>
 
 <script>
 import './assets/index.css'
-import side from './components/side.vue'
+import Hd from './components/header.vue'
+import Side from './components/side.vue'
 export default {
   name: 'app',
+  data () {
+    return {
+      route: 'red'
+    }
+  },
+  methods: {
+    handlerClick (key) {
+      this.route = key
+    }
+  },
   components: {
-    side
+    Side,
+    Hd
   }
 }
 </script>
