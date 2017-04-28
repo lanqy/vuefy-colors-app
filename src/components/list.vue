@@ -12,8 +12,6 @@ export default {
     return {
       colors: json,
       keys: Object.keys(json),
-      user: {},
-      title: this.$route.params.title,
       items: []
     }
   },
