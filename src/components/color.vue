@@ -1,5 +1,5 @@
 <template>
-  <div class="color" :style={backgroundColor:color}>
+  <div id="color" class="color" :style={backgroundColor:color}>
     <h1>{{color}}</h1>
     <div id="toast" :class="{open:open}">Copied!</div>
     <svg viewBox="0 0 250 250" id="githubLink" class="cornerSVG">
