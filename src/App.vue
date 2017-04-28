@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <header id="top"><a id="logo"></a><h2>red</h2><div id="modes">hex</div></header>
+    <main id="content">
+      <side></side>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <script>
+import './assets/index.css'
+import side from './components/side.vue'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    side
+  }
 }
 </script>
 
