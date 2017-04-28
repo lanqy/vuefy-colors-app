@@ -1,7 +1,6 @@
 <template>
   <div id="color" class="color" :style={backgroundColor:color}>
     <h1>{{color}}</h1>
-    <div id="toast" :class="{open:open}">Copied!</div>
   </div>
 </template>
 
@@ -18,22 +17,16 @@ export default {
   methods: {
     colorGen () {
       return '#' + Math.random().toString(16).slice(2, 8)
-    },
-    close () {
-      var _this = this
-      setTimeout(function () {
-        _this.open = false
-      }, 1000)
     }
   },
   created: function () {
     var self = this
     var doc = document
     doc.onclick = function (e) {
+      e.preventDefault()
       if (e.target.tagName === 'H1') {
         Utils.copy(e.target.innerText)
-        self.open = true
-        self.close()
+        Utils.toast()
       }
       self.color = self.colorGen()
     }
@@ -48,18 +41,6 @@ body{
   line-height: 1.6;
   font-weight: 400;
   font-family: "Quicksand", "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  .cornerSVG{
-    cursor: pointer;
-    width: 80px;
-    height: 80px;
-    fill: rgba(0, 0, 0, .4);
-    color: #fff;
-    position: absolute;
-    top: 0;
-    border: 0;
-    right: 0;
-    z-index: 999;
   }
 h1{
   font-size: 4.0rem;

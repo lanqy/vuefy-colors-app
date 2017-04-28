@@ -16,12 +16,19 @@ export default {
   name: 'app',
   data () {
     return {
-      route: 'red'
+      route: 'red',
+      open: false
     }
   },
   methods: {
     handlerClick (key) {
       this.route = key
+    },
+    close () {
+      var _this = this
+      setTimeout(function () {
+        _this.open = false
+      }, 1000)
     }
   },
   components: {

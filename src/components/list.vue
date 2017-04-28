@@ -3,7 +3,6 @@
       <ul>
         <li v-for="item in items" @click="handlerClick(item.hex)" :style="'background-color:' + item.hex"><label>{{item.code}}</label><span>{{item.hex}}</span></li>
       </ul>
-    <div id="toast" :class="{open:open}">Copied!</div>
   </div>
 </template>
 
@@ -46,16 +45,9 @@ export default {
         })
       }
     },
-    close () {
-      var _this = this
-      setTimeout(function () {
-        _this.open = false
-      }, 1000)
-    },
     handlerClick (text) {
       Utils.copy(text)
-      this.open = true
-      this.close()
+      Utils.toast()
     }
   },
   created: function () {
