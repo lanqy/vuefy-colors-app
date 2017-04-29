@@ -2,8 +2,8 @@
     <div id="color">
       <ul>
         <li v-for="item in items" @click="handlerClick(item.hex)" :style="'background-color:' + item.hex">
-          <label :style="'color:' + checkColor(item.name)">{{item.code}}</label>
-          <span :style="'color:' + checkColor(item.name)">{{item.hex}}</span>
+          <label :style="'color:' + checkColor(item.hex)">{{item.code}}</label>
+          <span :style="'color:' + checkColor(item.hex)">{{item.hex}}</span>
         </li>
       </ul>
   </div>
@@ -48,10 +48,12 @@ export default {
         })
       }
     },
-    checkColor (name) {
-      return (name.indexOf('darken') > -1 ||
-        name.indexOf('base') > -1 ||
-        name.indexOf('accent') > -1) ? '#fff' : ''
+    checkColor (hex) {
+      var rgb = Utils.hex2rgb(hex)
+      if (Utils.isDark(rgb)) {
+        return '#fff'
+      }
+      return ''
     },
     handlerClick (text) {
       Utils.copy(text)
