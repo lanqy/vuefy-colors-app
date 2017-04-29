@@ -1,11 +1,13 @@
 <template>
     <div id="color">
       <ul>
-        <li v-for="item in items" @click="handlerClick(item.hex)" :style="'background-color:' + item.hex"><label>{{item.code}}</label><span>{{item.hex}}</span></li>
+        <li v-for="item in items" @click="handlerClick(item.hex)" :style="'background-color:' + item.hex">
+          <label :style="'color:' + checkColor(item.name)">{{item.code}}</label>
+          <span :style="'color:' + checkColor(item.name)">{{item.hex}}</span>
+        </li>
       </ul>
   </div>
 </template>
-
 <script>
 import * as Utils from '../utils/utils'
 import json from '../utils/colors/colors.json'
@@ -39,11 +41,17 @@ export default {
         var rgb = obj[o[i]].rgb
         var code = obj[o[i]].code
         this.items.push({
+          name: o[i],
           hex: hex,
           rgb: rgb,
           code: code
         })
       }
+    },
+    checkColor (name) {
+      return (name.indexOf('darken') > -1 ||
+        name.indexOf('base') > -1 ||
+        name.indexOf('accent') > -1) ? '#fff' : ''
     },
     handlerClick (text) {
       Utils.copy(text)
