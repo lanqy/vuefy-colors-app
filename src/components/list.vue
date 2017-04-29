@@ -40,8 +40,9 @@ export default {
         var hex = obj[o[i]].hex
         var rgb = obj[o[i]].rgb
         var code = obj[o[i]].code
+        var name = o[i]
         this.items.push({
-          name: o[i],
+          name: name,
           hex: hex,
           rgb: rgb,
           code: code
