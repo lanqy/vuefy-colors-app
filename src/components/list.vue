@@ -1,9 +1,9 @@
 <template>
     <div id="color">
       <ul>
-        <li v-for="item in items" @click="handlerClick(item.hex)" :style="'background-color:' + item.hex">
-          <label :style="'color:' + checkColor(item.hex)">{{item.code}}</label>
-          <span :style="'color:' + checkColor(item.hex)">{{item.hex}}</span>
+        <li v-for="item in items" @click="handlerClick(item.text)" :style="'background-color:' + item.text">
+          <label :style="'color:' + color2white(item.hex)">{{item.code}}</label>
+          <span :style="'color:' + color2white(item.hex)">{{item.text}}</span>
         </li>
       </ul>
   </div>
@@ -15,7 +15,7 @@ export default {
   name: 'list',
   props: {
     title: String,
-    default: 'red'
+    mode: String
   },
   data () {
     return {
@@ -28,28 +28,44 @@ export default {
   },
   watch: {
     title (title) {
-      this.updateItems(title)
+      this.list(title, this.mode)
+    },
+    mode (mode) {
+      this.list(this.title, mode)
     }
   },
   methods: {
-    updateItems (title) {
+    list (title, mode) {
       var obj = this.colors[title]
       var o = Object.keys(obj)
+      var text, hex, rgb, code, name, hsl
       this.items = []
       for (var i = 0; i < o.length; i++) {
-        var hex = obj[o[i]].hex
-        var rgb = obj[o[i]].rgb
-        var code = obj[o[i]].code
-        var name = o[i]
+        hex = obj[o[i]].hex
+        rgb = Utils.hex2rgb(hex)
+        code = obj[o[i]].code
+        name = o[i]
+        hsl = Utils.rgb2hsl(rgb)
+        switch (mode) {
+          case 'rgb':
+            text = `rgb(${rgb.join(', ')})`
+            break
+          case 'hsl':
+            text = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`
+            break
+          default:
+            text = hex
+        }
         this.items.push({
           name: name,
           hex: hex,
+          text: text,
           rgb: rgb,
           code: code
         })
       }
     },
-    checkColor (hex) {
+    color2white (hex) {
       var rgb = Utils.hex2rgb(hex)
       if (Utils.isDark(rgb)) {
         return '#fff'
@@ -62,7 +78,7 @@ export default {
     }
   },
   created: function () {
-    this.updateItems(this.title)
+    this.list(this.title, this.mode)
   }
 }
 </script>

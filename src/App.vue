@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Hd></Hd>
+    <Hd @click="switchColorMode"></Hd>
     <main id="content">
       <Side @click="handlerClick"></Side>
-      <router-view :route="route"></router-view>
+      <router-view :route="route" :mode="mode"></router-view>
     </main>
   </div>
 </template>
@@ -17,7 +17,8 @@ export default {
   data () {
     return {
       route: 'red',
-      open: false
+      open: false,
+      mode: 'hex'
     }
   },
   methods: {
@@ -29,6 +30,9 @@ export default {
       setTimeout(function () {
         _this.open = false
       }, 1000)
+    },
+    switchColorMode (value) {
+      this.mode = value
     }
   },
   components: {
