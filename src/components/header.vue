@@ -36,5 +36,5 @@ export default {
 </script>
 
 <style lang="css">
-#top h2{font-size: 1.5rem;}
+#top h2{font-size: 1.2rem;}
 </style>

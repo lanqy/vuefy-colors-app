@@ -77,7 +77,7 @@ export default {
       Utils.toast()
     }
   },
-  created: function () {
+  mounted: function () {
     this.list(this.title, this.mode)
   }
 }
