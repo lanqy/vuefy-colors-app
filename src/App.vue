@@ -54,4 +54,11 @@ html,body{height: 100%;width:100%}
   width: 100%;
   color: #2c3e50;
 }
+._404{
+  -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    background: #666;
+  }
 </style>

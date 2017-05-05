@@ -13,23 +13,22 @@ export default {
   },
   data () {
     return {
-      color: this.colorConvert(this.mode),
+      color: this.colorConvert(this.mode, this.colorGen()),
+      hex: this.colorGen(),
       open: false
     }
   },
   watch: {
     mode (value) {
-      console.log(value)
-      this.color = this.colorConvert(value)
+      this.color = this.colorConvert(value, this.hex)
     }
   },
   methods: {
     colorGen () {
       return '#' + Math.random().toString(16).slice(2, 8)
     },
-    colorConvert (mode) {
-      var hex = this.colorGen()
-      var rgb = Utils.hex2rgb(hex)
+    colorConvert (mode, color) {
+      var rgb = Utils.hex2rgb(color)
       var hsl = Utils.rgb2hsl(rgb)
       switch (mode) {
         case 'rgb':
@@ -37,20 +36,20 @@ export default {
         case 'hsl':
           return `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`
         default:
-          return hex
+          return color
       }
     }
   },
   mounted: function () {
     var self = this
     this.$refs.color.onclick = function (e) {
-      console.log(self.mode)
       e.preventDefault()
       if (e.target.tagName === 'H1') {
         Utils.copy(e.target.innerText)
         Utils.toast()
       }
-      self.color = self.colorConvert(self.mode)
+      self.hex = self.colorGen()
+      self.color = self.colorConvert(self.mode, self.hex)
     }
   }
 }
@@ -64,7 +63,7 @@ body{
   font-weight: 400;
   font-family: "Quicksand", "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
-h1{
+h1,._404_txt{
   font-size: 2.0rem;
   font-family: "Quicksand";
   font-weight: 300;
@@ -74,8 +73,10 @@ h1{
   position: fixed;
   color: #fff;
   top: 50%;
-  /*left: 50%;
-  transform: translate(-50%, -50%);*/
+  /*
+  left: 50%;
+  transform: translate(-50%, -50%);
+  */
   text-align: center;
   width: 100%;
 }
