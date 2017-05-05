@@ -1,6 +1,9 @@
-# vuefy-colors-app
+# vuefy colors app
 
 > colors app build with vue.js
+
+Heavily inspired by <a href="https://github.com/lukeed/colors-app">https://github.com/lukeed/colors-app</a>
+
 
 ## Getting start
 
