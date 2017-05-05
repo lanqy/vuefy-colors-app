@@ -2,7 +2,7 @@
 
 > colors app build with vue.js
 
-## Build Setup
+## Getting start
 
 ``` bash
 # install dependencies
